@@ -1,0 +1,267 @@
+#include <iostream>
+#include <stdio.h>
+#include <fstream>
+#include <string.h>
+#include <sstream>
+using namespace std;
+struct Stu{ //建立Stu数据结构
+	Stu *nextstu;//Stu指针
+	string name;//学生姓名 
+	int computer,english,math;//学科成绩
+	Stu(string n,int c,int e,int m,Stu *next){name=n;computer=c;english=e;math=m;nextstu=next;}//递归指针指向自己
+};
+class Student{
+	Stu *student;//Stu指针
+	public:
+		Student():student(NULL){} 
+		~Student(){makeEmpty();}; //非位运算？
+		inline Stu* getStu() const;//建立内联函数
+		void makeEmpty();//清空 
+		void decreasestu();//删除一人 
+		void addstu(string n,int c,int e,int m){student=new Stu(n,c,e,m,student);};//增加一人 
+		void buildstu();//录入所有学生信息 
+		void search(string a);//根据姓名查询成绩 
+		void search(int n);//根据学科编号查询成绩 
+		void revise(string n,int i,int x,Student stu);//修改成绩 
+		void newinformation(string a,int n,int x,Student stu);//新增成绩 
+		void outnewsub(string y,int x);//存在新增学科时的输出 
+		friend ostream& operator<<(ostream& out,Student& x){
+		    Stu *s=x.student; 
+	        Student a;
+	        string n;
+	        int c,e,m;
+	        while(s!=NULL){
+		        n=s->name;
+		        c=s->computer;
+		        e=s->english;
+		        m=s->math;
+		        a.addstu(n,c,e,m);
+		        s=s->nextstu;
+n			}
+	        Stu *t=a.student;
+	        while(t!=NULL){
+		    out<<t->name<<" "<<t->computer<<" "<<t->english<<" "<<t->math<<endl;
+		    t=t->nextstu;
+			}
+	        return out;
+		};
+};
+Stu* Student::getStu() const
+{
+	return student;
+}
+void Student::makeEmpty(){//清空
+	Stu *s;
+	while(student!=NULL){
+		s=student;
+		student=student->nextstu;
+		delete s;
+	}
+}
+void Student::decreasestu(){//删除一人 
+	Stu *s;
+	s=student;
+	student=student->nextstu;
+	delete s;
+}
+void Student::buildstu(){//录入所有学生信息 
+	ifstream in("grade.txt");
+	string s,n;
+	int c,e,m;
+	do{
+		getline(in,s,'\n');
+		istringstream sin(s);
+		sin>>n>>c>>e>>m;
+		addstu(n,c,e,m);
+	}while(!s.empty());
+	decreasestu();
+}
+void Student::search(string a){//根据姓名查询成绩 
+	cout<<"输入学生姓名查询成绩（仅一项）："<<endl;
+	cin>>a;
+	Stu *s=student;
+	while(s!=NULL){
+		if(a==s->name){
+			double average=(s->computer+s->english+s->math)/3.0;
+	        int ave=average;
+	        if(average-ave>=0.5) ave+=1;
+	        cout<<s->name<<"的计算机、英语、数学成绩分别为"<<s->computer<<"，"<<s->english<<"，"<<s->math<<"，平均成绩为"<<ave<<endl;
+	        break;
+		}
+		s=s->nextstu;
+	}
+}
+void Student::search(int n){//根据学科编号查询成绩 
+	cout<<"查询计算机成绩请输入1，查询英语成绩请输入2，查询数学成绩请输入3。"<<endl;
+	cout<<"输入学科编号查询成绩（仅一项）："<<endl;
+	cin>>n;
+	while(n!=1&&n!=2&&n!=3){
+		cout<<"输入学科编号有误！请重新输入："<<endl;
+		cin>>n;
+	}
+	int sum=0,i=0;
+	Stu *s=student;
+	while(s!=NULL){
+		if(n==1){
+			cout<<s->name<<"的计算机成绩为"<<s->computer<<endl;
+			sum+=s->computer;
+			i+=1;
+		}
+		if(n==2){
+			cout<<s->name<<"的英语成绩为"<<s->english<<endl;
+			sum+=s->english;
+			i+=1;
+		}
+		if(n==3){
+			cout<<s->name<<"的数学成绩为"<<s->math<<endl;
+			sum+=s->math;
+			i+=1;
+		}
+		s=s->nextstu;
+	}
+	double average=sum/i;
+	int ave=average;
+	if(average-ave>=0.5) ave+=1;
+	cout<<"故该学科的平均成绩为"<<ave<<endl;
+}
+void Student::revise(string n,int i,int x,Student stu){//修改成绩 
+	ofstream out;
+	out.open("grade.txt");
+	cout<<"依次输入需要修改信息的学生姓名（仅一项），该学生需要修改的学科编号（仅一项）以及该学科修改后的成绩："<<endl;
+	cin>>n>>i>>x;
+	Stu *s=stu.student;
+	while(s!=NULL){
+		if(n==s->name){
+			while(i!=1&&i!=2&&i!=3){
+			    cout<<"输入学科编号有误！请重新输入："<<endl;
+		        cin>>i;
+			}
+			if(i==1) s->computer=x;
+			if(i==2) s->english=x;
+			if(i==3) s->math=x;
+			break;
+		}
+		s=s->nextstu;
+	}
+	out<<stu;
+	out.close();
+	cout<<"成绩修改成功！"<<endl;
+}
+void Student::newinformation(string a,int n,int x,Student stu){//新增成绩 
+	cout<<"输入需要新增成绩的学生姓名（仅一项）以及该学生新增成绩的学科编号（仅一项，如果学科为新增项则输入学科编号4）："<<endl;
+	cout<<"注意：当前所有学生所有学科均有成绩，故新增成绩过程中，需要新增的学生和学科中至少有一项为新增项！"<<endl; 
+	cin>>a>>n;
+	while(n!=1&&n!=2&&n!=3&&n!=4){
+		cout<<"输入学科编号有误！请重新输入："<<endl;
+		cin>>n;
+	}
+	cout<<"输入新增的成绩："<<endl;
+	cin>>x;
+	Stu *s=stu.student;
+	int w=0;
+	while(s!=NULL){
+		if(a==s->name){
+			while(n!=4){
+		        cout<<"输入学科编号有误！请重新输入："<<endl;
+		        cin>>n;
+        	}
+			stu.outnewsub(a,x);
+			w=-1;
+	        break;
+		}
+		s=s->nextstu;
+	}
+	if(w==0){
+		int c,e,m;
+	    if(n==1){c=x;e=m=0;}
+	    if(n==2){e=x;c=m=0;}
+	    if(n==3){m=x;c=e=0;}
+	    if(n==4) c=e=m=0; 
+	    stu.addstu(a,c,e,m);
+	    if(n==4) stu.outnewsub(a,x);
+	    else{
+		    ofstream out;
+	        out.open("grade.txt");
+	        out<<stu;
+	        out.close();
+	    }
+	}
+	cout<<"成绩新增成功！"<<endl;
+}
+void Student::outnewsub(string y,int x){//存在新增学科时的输出 
+	ofstream out;
+	out.open("grade.txt");
+	Stu *s=student;
+	Student a;
+	string n;
+	int c,e,m;
+	while(s!=NULL){
+		n=s->name;
+		c=s->computer;
+		e=s->english;
+		m=s->math;
+		a.addstu(n,c,e,m);
+		s=s->nextstu;
+	}
+	Stu *t=a.student;
+	while(t!=NULL){
+		if(y==t->name) out<<t->name<<" "<<t->computer<<" "<<t->english<<" "<<t->math<<" "<<x<<endl;
+		else out<<t->name<<" "<<t->computer<<" "<<t->english<<" "<<t->math<<endl;
+		t=t->nextstu;
+	}
+	out.close();
+}
+
+int main(){
+	ifstream in("grade.txt");
+	if(!in) {
+	    cout<<"打开文件有误！"<<endl;
+	    return -1;
+	}
+	int c;
+	cout<<"查询学生成绩请输入1，查询学科成绩请输入2，修改成绩信息请输入3，新增成绩信息请输入4："<<endl;
+	cin>>c;
+	while(c!=1&&c!=2&&c!=3&&c!=4){
+		cout<<"输入选项有误！请重新输入："<<endl;
+		cin>>c;
+	} 
+	if(c==1){
+		cout<<"输入查询项数："<<endl;
+	    cin>>c;
+	    for(int i=0;i<c;i++){
+		    string a;
+		    Student stu;
+		    stu.search(a);
+		}
+	}
+	if(c==2){
+		cout<<"输入查询项数："<<endl;
+	    cin>>c;
+	    for(int i=0;i<c;i++){
+		    int n;
+	    	Student stu;
+	    	stu.search(n);
+		}
+	}
+	if(c==3){
+		string n;
+		int x,y;
+		Student stu,o;
+		stu.buildstu();
+		remove("grade.txt");
+		cout<<"附成绩单："<<endl;
+		cout<<stu;
+		o.revise(n,y,x,stu);
+	}
+	else{
+		string a;
+		int n,x;
+		Student stu,o;
+		stu.buildstu();
+		remove("grade.txt");
+		cout<<"附成绩单："<<endl;
+		cout<<stu; 
+		o.newinformation(a,n,x,stu);
+	}
+	return 0;
+}

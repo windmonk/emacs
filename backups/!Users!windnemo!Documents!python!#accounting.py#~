@@ -1,0 +1,37 @@
+#! /usr/bin/env python
+#coding=utf-8
+
+import urllib2
+import urllib
+import cookielib
+import HTMLParser  
+import urlparse  
+import string  
+import re
+
+def login():
+    uname = raw_input("请输入用户名:")
+    pwd = raw_input("请输入密码:")
+    data={"LoginName":uname ,"Password":pwd}  #登陆用户名和密码
+    post_data=urllib.urlencode(data)   #将post消息化成可以让服务器编码的方式
+    cj=cookielib.CookieJar()   #获取cookiejar实例
+    opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+    #自己设置User-Agent（可用于伪造获取，防止某些网站防ip注入）
+    headers ={"User-agent":"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1"}
+    website = 'http://www2.1k100.com/home/SaveLogin'
+    req=urllib2.Request(website,post_data,headers)
+    content=opener.open(req)
+    print content.read()    #linux下没有gbk编码，只有utf-8编码
+
+if __name__ == '__main__':
+    #登录的主页面  
+    hosturl = '******' //自己填写  
+    #post数据接收和处理的页面（我们要向这个页面发送我们构造的Post数据）  
+    posturl = '******' //从数据包中分析出，处理post请求的url  
+
+    #设置一个cookie处理器，它负责从服务器下载cookie到本地，并且在发送请求时带上本地的cookie  
+    cj = cookielib.LWPCookieJar()  
+    cookie_support = urllib2.HTTPCookieProcessor(cj)  
+    opener = urllib2.build_opener(cookie_support, urllib2.HTTPHandler)  
+    urllib2.install_opener(opener)
+    login()

@@ -1,0 +1,54 @@
+;; This buffer is for text that is not saved, and for Lisp evaluation.
+;; To create a file, visit it with C-x C-f and enter text in 
+;; 记住要保存！！
+ Excel VBA 的编程技巧
+* 1、基础构成
+** 1、程序结构
+   Sub 函数/按钮名称（参数）;; Sub的缩写是subroutine子程序，sub是子、副的前缀;; routine是u常规; 例行程序; 
+   程序主题
+   End Sub
+** 2、变量
+*** 1、声明变量
+    Dim 变量名称 As 变量类型 ;; dim的缩写是dimension尺寸；
+    eg. Dim x As Range 
+*** 2、常用变量的类型
+    Integer 整数 %
+    Long 长整数 &
+    Double 双精度（通吃整数、小数）#
+    Date 日期 
+    String 字符 $
+    Object 对象类型 ！！;;非常特殊的数据类型！
+    Variant 如果不指定变量类型 本类型也称为变体型！英[ˈveəriənt]
+*** 3、声明变量的方式
+;;这四种除了作用域不同，其他都相同。
+    Dim 变量名 As 数据类型     ;;【最常用的声明方式，放在不同位置将会作用不同范围】放在sub中就是（本地变量）放在sub前就是（模块级变量）;
+    Public 变量名 As 数据类型  ;; （模块级变量）顾名思义就是【公共变量】只能在第一个模块的sub前使用，作用所有模块;
+    Private 变量名 As 数据类型 ;; （模块级变量）作用单个模块，只能在sub前使用;
+    Static 变量名 As 数据类型  ;;【静态变量】（本地变量）
+| 名称    | 使用位置          | 作用域               | 描述                                       |
+|---------+-------------------+----------------------+--------------------------------------------|
+| Dim     | 任何位置          | 根据位置的变化而变化 | 放在sub前是模块级变量、放在sub中是本地变量 |
+| Public  | 第一个模块的sub前 | 所有模块             | 公共变量                                   |
+| Private | 放在sub前         | 单个模块             | 模块级变量                                 |
+| Static  | 放在sub中         | 单个过程             | 本地变量                                   |
+
+*** 4、使用变量（给变量赋值）
+    1、变量名 = 数据 
+    2、Let 变量名 = 数据
+    3、Set 变量名 = 对象 ;;仅对Object类型的变量使用 set不可省略
+    eg. Dim range1 As Range  ;;声明Object类型
+        Set rang1 = Rang("a1")   ;;给Object变量映射a1位置
+        range1.Value = "Hello World"  ;;使用方法操作赋值
+** 3、常量
+*** 1、声明常量
+;;常量通常是用来储存固定的不被修改的值，如 圆周率、个人所得税
+    Const 常量名称 As 数据类型 = 数值
+    eg. Const p As Single = 3.14 ;;Const是constant缩写，连续、持续、常量的意思；
+    ;;Const 类似 Dim 一个负责常量声明，一个负责变量声明
+** 4、数组
+;; 数组 是 变量，而且还是 同种类型 的变量的 集合；
+*** 1、声明数组
+    Dim 数组名(a to b) As 数据类型 ;; 通用的声明变量内含（b-a+1）个元素
+    Public 数组名(a to b) As 数据类型 ;;
+    eg. Dim array1 As String ;;array 队列，数组；
+    

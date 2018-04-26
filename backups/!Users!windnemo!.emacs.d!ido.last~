@@ -1,0 +1,44 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/Users/windnemo/Documents/" . "Sync/")
+ ("/Users/windnemo/" . ".emacs.d/")
+ ("/Users/windnemo/Documents/learn-git/" . ".git/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/Users/windnemo/.emacs.d/"
+ "/Users/windnemo/Documents/"
+ "/Users/windnemo/Documents/Sync/"
+ "/Users/windnemo/Documents/learn-git/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "init.el"
+ "new.txt"
+ "Excel_VBA_编程要点"
+ "main.php"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/Users/windnemo/.emacs.d/" (23189 14679 414557 118000) "backups/" "elpa/" "init.el" "auto-save-list/" ".DS_Store" "ido.last" "snippets/" "../" "./")
+
+ ("/Users/" (22999 27987 281619 781000) "Guest/" "Shared/" "windnemo/" ".localized" "../" "./")
+
+ ("/Users/windnemo/" (23189 14822 19404 419000) ".viminfo" ".bash_history" ".python_history" "Downloads/" ".oh-my-zsh/" ".swt/" ".pyenv/" "Documents/" ".nutstore/" ".BurpSuite/" ".Trash/" ".zsh-update" "Applications/" "Movies/" "Applications (Parallels)/" ".ssh/" "Public/" ".bash_sessions/" ".android/" ".node_repl_history" ".emacs.d/" ".oracle_jre_usage/" ".matplotlib/" "Nustore Files/" "Library/" "Desktop/" ".ipython/" ".zsh_history" "Pictures/" ".zshrc" ".vnc/" ".sogouinput/" ".CFUserTextEncoding" "VirtualBox VMs/" ".zshrc~" ".DS_Store" ".vim/" ".zcompdump-wind的Mac mini-5.2" "Music/" ".config/" ".zcompdump-wind的Mac mini-5.3" "../" "./")
+
+ ("/Users/windnemo/Documents/Sync/" (22798 57192 0 0) "我们将要何去何从——莱商临沂分行基层员工的迷茫.txt" "微信小程序-EVA计算器/" "WechatIMG1.jpeg" "sinx.py" "Python编程要点" "hzlr/" "Excel_VBA_编程要点" "eva-02-grey-space/" "emacs/" ".DS_Store" ".#weixin.html" "#weixin.html#" "#read_excel_match_set.py#" "#Excel_VBA_编程要点#" "../" "./")
+
+ ("/Users/windnemo/Documents/" (22795 4635 0 0) "行庆这个系列活动.mindnode/" "未命名_meitu_0.jpg" "未命名.pages" "未命名.graffle" "朗读.docx" "新员工转正考试.rtf" "新员工转正考试.mindnode/" "我的笔记/" "小程序00/" "女生节Party.mindnode/" "三周年行庆.mindnode/" "Who you are : a message to all women.md" "WechatIMG4.jpeg" "WechatIMG3.jpeg" "WechatIMG28.jpeg" "WechatIMG27.jpeg" "WechatIMG26.jpeg" "WechatIMG25.jpeg" "WechatIMG23.jpeg" "WechatIMG22.jpeg" "WechatIMG21.jpeg" "WechatIMG200_meitu_1.jpg" "WechatIMG200.jpeg" "WechatIMG20.jpeg" "WechatIMG2.jpeg" "WechatIMG19.jpeg" "WechatIMG18.jpeg" "WechatIMG17.jpeg" "WechatIMG16.jpeg" "WechatIMG14_meitu_2.jpg" "WechatIMG14.jpeg" "WechatIMG1.jpeg" "Virtual Machines.localized/" "test.txt" "Sync/" "python/" "PDF_371391899 (1).pdf" "Parallels/" "Index.mindnode/" "git/" "burpsuite_pro_v1.7.11(1)/" "android/" "753-T0026.pdf" "4.临沂市社会保险单位网上办事权限开通回执.doc" "3.临沂市社会保险单位网上办事权限开通申请单.doc" "21485654180_.pic_hd副本.jpg" "2.临沂市社会保险网上业务办理协议.doc" "1.临沂市社会保险网上办事项目表.doc" "0.jpg" ".localized" ".DS_Store" "$RECYCLE.BIN/" "../" "./")
+
+ ("/Users/windnemo/Documents/learn-git/.git/" (22636 48511 0 0) "refs/" "objects/" "info/" "hooks/" "HEAD" "description" "config" "branches/" "../" "./")
+
+ ("/Users/windnemo/Documents/learn-git/" (22636 22666 0 0) ".git/" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
